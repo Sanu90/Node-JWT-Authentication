@@ -4,7 +4,9 @@ dotenv.config();
 
 const authenticate = (req,res,next)=>{
     console.log("Authenticate function in auth middleware");
-    const authHeader = req.header('Authorization')
+    const authHeader = req.header('Authorization');
+    console.log("authHeader--->", authHeader);
+    
     if(!authHeader){
         return res.status(401).json({
             error: 'No token found to proceed.'
@@ -21,7 +23,9 @@ const authenticate = (req,res,next)=>{
     }
     try {
 
-        const verifyJWT = jwt.verify(token,process.env.JWT_KEY)
+        const verifyJWT = jwt.verify(token,process.env.JWT_KEY);
+        console.log("JWT verification", verifyJWT);
+        
         req.user = verifyJWT.user;
         next()
         
@@ -35,4 +39,4 @@ const authenticate = (req,res,next)=>{
     
 }
 
-module.exports = {authenticate}
+module.exports = authenticate;
