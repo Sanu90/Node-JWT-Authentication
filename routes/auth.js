@@ -14,9 +14,11 @@ router.post('/register',async(req,res)=>{
     
     
     const {name,email,password} = req.body;
-    try {
+    try { 
         let user = await User.findOne({email})
         if(user){
+            console.log("User already available");
+            
             return res.status(400).json({error:'User already exists'})
         }
 
@@ -32,6 +34,7 @@ router.post('/register',async(req,res)=>{
         
         user.password = await bcrypt.hash(password,hashedPassword)
         await user.save();
+        console.log("User created");
         return res.status(201).json({msg:'User registration successfull'})
 
     } catch (error) {
