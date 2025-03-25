@@ -53,7 +53,7 @@ router.post('/login', async(req,res)=>{
 
     const {email,password} = req.body;
     try {
-        if(!email && !password){
+        if(!email || !password){
             res.status(400),json({
                 error: 'Please enter both fields..'
             })

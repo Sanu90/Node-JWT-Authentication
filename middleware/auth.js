@@ -22,21 +22,17 @@ const authenticate = (req,res,next)=>{
         })
     }
     try {
-
         const verifyJWT = jwt.verify(token,process.env.JWT_KEY);
-        console.log("JWT verification", verifyJWT);
-        
-        req.user = verifyJWT.user;
+        // check here...
+        console.log("JWT verification--->", verifyJWT);
+        req.user = verifyJWT.userId;
         next()
         
     } catch (error) {
         return res.status(401).json({
             error:error
         })
-    }
-    
-    
-    
+    }  
 }
 
 module.exports = authenticate;
